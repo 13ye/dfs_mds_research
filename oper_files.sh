@@ -18,11 +18,11 @@ case $operType in
             echo $i > test_data/file_$i
         done;;
     "lsstat" )
-        ls -la;;
+        ls -la test_data/ > /dev/null;;
     "du_sh" )
         du -sh;;
     "read" )
-        cat test_data/file_* > /dev/null;;
+        find ./test_data/ -name "file_*" | xargs cat > /dev/null;;
     "remove" )
         rm test_data/file_*;;
     * )
