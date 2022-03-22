@@ -11,18 +11,17 @@ prepare weed and ceph respectively:
 ```bash
 docker run -itd --name ub_ceph --network=host ubuntu:18.04
 docker exec -it ub_ceph /bin/bash
-apt update && apt -y install sudo git python3-pip
-python3 -m pip install ninja
-git clone https://github.com/ceph/ceph -b v17.1.0
+apt update && apt -y install sudo git
+# install some other stuff docker container lack
+# apt install udev libudev-dev libblkid-dev libkeyutils-dev
+git clone https://github.com/ceph/ceph -b v15.2.16 ceph_15
 cd ceph && git submodule update --init --recursive
 ./install-deps.sh
 # then build
-./do_cmake.sh -DWITH_MANPAGE=OFF -DWITH_RDMA=OFF
+./do_cmake.sh -DCMAKE_BUILD_TYPE=RelWithDebInfo
 cd build
 # may take 2hours with good network
-ninja -j 8
-# then install:
-ninja install
+time make -j32
 ```
 
 ## weed test
