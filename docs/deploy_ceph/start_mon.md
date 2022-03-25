@@ -1,4 +1,8 @@
 # inside container which already install ceph
+```bash
+docker run -itd --name=ceph_mon1 --network=host ub_ceph_prod:v17.1.0
+docker exec -it ceph_mon1 /bin/zsh
+```
 
 ## create config
 ```bash
@@ -47,3 +51,4 @@ sudo -u ceph ceph-mon --cluster ceph --mkfs -i mon-node1 --monmap /tmp/monmap --
 
 ## verify monitor:
 `ceph -s`
+

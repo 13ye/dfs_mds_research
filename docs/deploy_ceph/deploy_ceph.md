@@ -23,16 +23,13 @@ export PYTHONPATH=/usr/local/lib/python3.8/dist-packages/:/usr/local/lib/python3
 ```
 
 ## start mon
-```bash
-docker run -itd --name=ceph_mon1 --network=host ub_ceph_prod:v17.1.0
-docker exec -it ceph_mon1 /bin/zsh
-# inside container
-```
-then refer to: [start_mon.md](./start_mon.md)
+refer to: [start_mon.md](./start_mon.md)
 
 ## deploy osd
-[doc](https://docs.ceph.com/en/pacific/cephadm/services/osd/#cephadm-deploy-osds)
-```bash
-ceph orch daemon add osd *<host>*:*<device-path>*
-```
+refer to: [prepare_osd.md](./prepare_osd.md)
 
+## add mds
+refer to: [add_mds.md](./add_mds.md)
+
+## mount fs
+refer to: [mount_fs.md](./mount_fs.md)
