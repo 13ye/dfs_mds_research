@@ -8,7 +8,7 @@ Machine Configuration: ubuntu18.04.5LTS64C128GB2TBNVMe1000Mbits
 
 prepare weed and ceph respectively:
 1. prepare weed binary: `curl -L https://github.com/chrislusf/seaweedfs/releases/download/2.95/linux_amd64.tar.gz -o weed_linux_amd64.tar.gz && tar -C /usr/local/bin/ -vxzf weed_linux_amd64.tar.gz`
-2. prepare ceph: ceph release size is huge (library>10GB, binary>20GB), deploy as: [deploy ceph](./deploy_ceph.md)
+2. prepare ceph: ceph release size is huge (library>10GB, binary>20GB), deploy as: [deploy ceph](../deploy_ceph/deploy_ceph.md)
 
 ## weed test
 ```bash

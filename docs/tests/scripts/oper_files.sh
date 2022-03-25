@@ -29,3 +29,4 @@ case $operType in
         echo wrong operType "$operType"
         exit -2;;
 esac
+
