@@ -4,7 +4,7 @@ parted device from NVMe /dev/sdb: "/dev/sdb1/" "/dev/sdb2/" "/dev/sdb3/" "/dev/s
 # inside container which already install ceph
 ```bash
 docker run -itd --name=ceph_osd1 --privileged --network=host ub_ceph_prod:v17.1.0
-docker run -itd --name=ceph_osd2 --device=/dev/sdb3 --device=/dev/sdb4 -v /dev/sdb3:/dev/sdb3 -v /dev/sdb4:/dev/sdb4 --network=host ub_ceph_prod:v17.1.0
+docker run -itd --name=ceph_osd2 --privileged --network=host ub_ceph_prod:v17.1.0
 docker exec -it ceph_osd1 /bin/zsh
 ```
 

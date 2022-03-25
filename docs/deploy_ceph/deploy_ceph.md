@@ -31,5 +31,5 @@ refer to: [prepare_osd.md](./prepare_osd.md)
 ## add mds
 refer to: [add_mds.md](./add_mds.md)
 
-## mount fs
-refer to: [mount_fs.md](./mount_fs.md)
+## create and mount fs
+refer to: [create_fs.md](./create_fs.md)

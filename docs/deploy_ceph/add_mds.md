@@ -29,3 +29,4 @@ ceph-mds --cluster ceph -i $id -m 192.168.5.172:6789
 
 ## verify mds on monitor:
 `ceph fs dump`
+
