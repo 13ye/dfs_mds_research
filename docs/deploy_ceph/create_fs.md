@@ -4,8 +4,8 @@
 ## in monitor-1
 ```bash
 docker exec -it ceph_mon1 /bin/zsh
-ceph osd pool create cephfs_data 32 32
-ceph osd pool create cephfs_metadata 32 32
+ceph osd pool create cephfs_data 8 8
+ceph osd pool create cephfs_metadata 8 8
 ceph fs new ceph_fs1 cephfs_metadata cephfs_data
 ```
 
@@ -16,8 +16,9 @@ ceph fs new ceph_fs1 cephfs_metadata cephfs_data
 ## using FUSE to mount
 ```bash
 # create user name foo of all access
-sudo ceph-authtool --create-keyring /etc/ceph/ceph.client.foo.keyring --gen-key -n client.foo --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
-ceph-fuse -n client.foo -m mon-node1:6789 /mnt/mycephfs
+# sudo ceph-authtool --create-keyring /etc/ceph/ceph.client.foo.keyring --gen-key -n client.foo --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
+# using client.admin, because of permission management
+ceph-fuse -n client.admin -m 192.168.5.172:6789 /mnt/mycephfs --keyring /etc/ceph/ceph.client.admin.keyring2  -c /etc/ceph/ceph.conf2
 ```
 
 ## mount fs where has installed ceph

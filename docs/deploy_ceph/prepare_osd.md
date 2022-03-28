@@ -12,10 +12,10 @@ docker exec -it ceph_osd1 /bin/zsh
 1. copy /var/lib/ceph/bootstrap-osd/ceph.keyring from monitor node (mon-node1) to /etc/ceph/ceph.keyring on osd node (osd-node1)
 2. copy /etc/ceph/ceph.conf from monitor node (mon-node1) to /etc/ceph/ceph.conf on osd node (osd-node1)
 
-## prepare&avtivate filestore osd
+## prepare&avtivate filestore osd (fail in container)
 ```bash
-sudo ceph-volume lvm create --filestore --data /dev/sdb1 --journal /dev/sdb2
-sudo ceph-volume lvm list
+# sudo ceph-volume lvm create --filestore --data /dev/sdb1 --journal /dev/sdb2
+# sudo ceph-volume lvm list
 ```
 
 ## if failed above, do as follows to start an osd
