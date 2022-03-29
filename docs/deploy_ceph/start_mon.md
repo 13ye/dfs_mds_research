@@ -6,12 +6,17 @@ docker exec -it ceph_mon1 /bin/zsh
 
 ## create config
 ```bash
+# set variable
+mon_name=mon-node1
+mon_ip=192.168.5.171
+fsid=`uuidgen`
+# start
 mkdir /etc/ceph
 cat << EOF > /etc/ceph/ceph.conf
 [global]
-fsid = `uuidgen`
-mon initial members = mon-node1
-mon host = 192.168.5.172
+fsid = $fsid
+mon initial members = $mon_name
+mon host = $mon_ip
 public network = 192.168.5.0/24
 auth cluster required = cephx
 auth service required = cephx
@@ -40,14 +45,26 @@ sudo chown ceph:ceph /tmp/ceph.mon.keyring
 ## set monmap
 replace uuid, hostname, ip-address:
 ```bash
-monmaptool --create --add {hostname} {ip-address} --fsid {uuid} /tmp/monmap
+monmaptool --create --add $mon_name $mon_ip --fsid $fsid /tmp/monmap
 chown ceph:ceph /var/lib/ceph/
-sudo -u ceph mkdir -p /var/lib/ceph/mon/ceph-mon-node1
-sudo -u ceph ceph-mon --cluster ceph --mkfs -i mon-node1 --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyring
+sudo -u ceph mkdir -p /var/lib/ceph/mon/ceph-$mon_name
+sudo -u ceph ceph-mon --cluster ceph --mkfs -i $mon_name --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyring
+```
+
+## start mgr
+```bash
+name=mgr1
+mkdir -p /var/lib/ceph/mgr/ceph-$name
+ceph auth get-or-create mgr.$name mon 'allow profile mgr' osd 'allow *' mds 'allow *' > /var/lib/ceph/mgr/ceph-$name/keyring
+ceph-mgr -i $name -d
 ```
 
 ## start monitor:
-`ceph-mon --id=mon-node1 -d`
+```bash
+mkdir -p /var/log/ceph
+sudo chown ceph:ceph /var/log/ceph
+ceph-mon --id=$mon_name -d
+```
 
 ## verify monitor:
 `ceph -s`

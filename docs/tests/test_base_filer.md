@@ -23,7 +23,7 @@ curl "http://$ip_weed:8888/path/to/sources/file_1"
 mkdir -p /tmp/weed_mnt1
 weed mount -filer=$ip_weed:8888 -dir=/tmp/weed_mnt1
 # then you can use mounted path as local fileSystem
-cp ./oper_files.sh /tmp/weed_mnt1
+cp ./scripts/oper_files.sh /tmp/weed_mnt1
 cd /tmp/weed_mnt1
 time ./oper_files.sh write
 time ./oper_files.sh lsstat
@@ -40,41 +40,10 @@ bench result:
 | seaweedfs | 262144 | read | 6min3.31s |
 | seaweedfs | 262144 | remove | 5.307s |
 
-## ceph test
-```bash
-mkdir -p /tmp/weed_vol1
-weed server -dir=/tmp/weed_vol1 -filer -volume
-# take this node ip as 192.168.15.172
-export ip_weed="192.168.15.172"
-# change to another physics node!!! test connection
-echo "123abcd" > file_1 && curl -F "filename=@file_1" "http://$ip_weed:8888/path/to/sources/"
-curl "http://$ip_weed:8888/path/to/sources/file_1"
-# mount fs folder as filesystem
-mkdir -p /tmp/weed_mnt1
-weed mount -filer=$ip_weed:8888 -dir=/tmp/weed_mnt1
-# then you can use mounted path as local fileSystem
-cp ./oper_files.sh /tmp/weed_mnt1
-cd /tmp/weed_mnt1
-time ./oper_files.sh write
-time ./oper_files.sh lsstat
-time ./oper_files.sh du_sh
-time ./oper_files.sh read
-time ./oper_files.sh remove
-```
-bench result:
-|    dfs    |  iter  | item | time |
-|-----------|--------|------|------|
-| ceph | 262144 | write | s |
-| ceph | 262144 | lsstat | s |
-| ceph | 262144 | du_sh | s |
-| ceph | 262144 | read | s |
-| ceph | 262144 | remove | s |
-
-
 ## local test
 ```bash
 mkdir -p /tmp/local_mnt1
-cp ./oper_files.sh /tmp/local_mnt1
+cp ./scripts/oper_files.sh /tmp/local_mnt1
 cd /tmp/local_mnt1
 time ./oper_files.sh write
 time ./oper_files.sh lsstat
@@ -90,5 +59,4 @@ bench result:
 | local | 262144 | du_sh | 0.467s |
 | local | 262144 | read | 1.529s |
 | local | 262144 | remove | 1.396s |
-
 

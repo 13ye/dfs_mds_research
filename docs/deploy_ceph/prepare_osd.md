@@ -34,9 +34,10 @@ ceph-authtool --create-keyring /var/lib/ceph/osd/ceph-$ID/keyring \
 ceph-osd -i $ID --mkfs --osd-uuid $UUID
 adduser ceph
 chown -R ceph:ceph /var/lib/ceph/osd/ceph-$ID
-ceph-osd -i $ID --osd-uuid $UUID -d
 ```
 
+## start osd
+`ceph-osd -i $ID --osd-uuid $UUID -d`
 
 # verify monitor:
 `ceph -s`
