@@ -40,6 +40,38 @@ bench result:
 | seaweedfs | 262144 | read | 6min3.31s |
 | seaweedfs | 262144 | remove | 5.307s |
 
+
+## minfs test
+```bash
+mkdir -p /tmp/minio_vol1
+weed server -dir=/tmp/weed_vol1 -filer -volume
+# take this node ip as 192.168.15.172
+export ip_weed="192.168.15.172"
+# change to another physics node!!! test connection
+echo "123abcd" > file_1 && curl -F "filename=@file_1" "http://$ip_weed:8888/path/to/sources/"
+curl "http://$ip_weed:8888/path/to/sources/file_1"
+# mount fs folder as filesystem
+mkdir -p /tmp/weed_mnt1
+weed mount -filer=$ip_weed:8888 -dir=/tmp/weed_mnt1
+# then you can use mounted path as local fileSystem
+cp ./scripts/oper_files.sh /tmp/weed_mnt1
+cd /tmp/weed_mnt1
+time ./oper_files.sh write
+time ./oper_files.sh lsstat
+time ./oper_files.sh du_sh
+time ./oper_files.sh read
+time ./oper_files.sh remove
+```
+bench result:
+|    dfs    |  iter  | item | time |
+|-----------|--------|------|------|
+| minfs | 262144 | write | 13min25.80s |
+| minfs | 262144 | lsstat | 51.686s |
+| minfs | 262144 | du_sh | 25.072s |
+| minfs | 262144 | read | 6min3.31s |
+| minfs | 262144 | remove | 5.307s |
+
+
 ## local test
 ```bash
 mkdir -p /tmp/local_mnt1
